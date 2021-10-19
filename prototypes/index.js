@@ -96,7 +96,17 @@ const clubPrompts = {
     //   ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    // input an array of club objects
+    // output an object of names with a value of their clubs
+
+    const result = clubs.reduce((allMemberClubs, club) => {
+      club.members.forEach((member) => {
+        if (!allMemberClubs[member]) {
+          allMemberClubs[member] = []};
+        allMemberClubs[member].push(club.club);
+      })
+      return allMemberClubs;
+    }, {});
     return result;
 
     // Annotation:
@@ -132,7 +142,12 @@ const modPrompts = {
     //   { mod: 4, studentsPerInstructor: 8 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    // input an array of objects
+    // output an array of objects with students/instructors with a new key of studentsPerInstructor
+
+    const result = mods.map((mod) => {
+      return {mod: mod.mod, studentsPerInstructor: mod.students/mod.instructors}
+    });
     return result;
 
     // Annotation:
@@ -167,12 +182,20 @@ const cakePrompts = {
     //    ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    // input an array of objects
+    // output an array of objects with just flavor and how much inStock
+
+    const result = cakes.map((cake) => {
+      return {flavor: cake.cakeFlavor, inStock: cake.inStock}
+    });
     return result;
 
     // Annotation:
     // Write your annotation here as a comment
   },
+
+
+
 
   onlyInStock() {
     // Return an array of only the cakes that are in stock
@@ -195,7 +218,7 @@ const cakePrompts = {
     // ..etc
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.filter(cake => cake.inStock);
     return result;
 
     // Annotation:
@@ -206,7 +229,10 @@ const cakePrompts = {
     // Return the total amount of cakes in stock e.g.
     // 59
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = cakes.reduce((sum, cake) => {
+      sum += cake.inStock
+      return sum
+    }, 0);
     return result;
 
     // Annotation:
@@ -218,7 +244,17 @@ const cakePrompts = {
     // every cake in the dataset e.g.
     // ['dutch process cocoa', 'toasted sugar', 'smoked sea salt', 'berries', ..etc]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    // input an array of objects
+    // output an array of just the toppings
+
+    const result = cakes.reduce((toppings, cake) => {
+      cake.toppings.forEach((topping) => {
+        if (!toppings.includes(topping)) {
+          toppings.push(topping)
+        }
+      })
+      return toppings;
+    }, []);
     return result;
 
     // Annotation:
@@ -236,7 +272,19 @@ const cakePrompts = {
     //    ...etc
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    // input an array of cakes
+    // output an object with toppings as keys and amounts as values
+
+    const result = cakes.reduce((groceryList, cake) => {
+      cake.toppings.forEach((topping) => {
+        if (!groceryList[topping]) {
+          groceryList[topping] = 0;
+        }
+        groceryList[topping] ++;
+      })
+      return groceryList;
+    }, {});
+
     return result;
 
     // Annotation:
