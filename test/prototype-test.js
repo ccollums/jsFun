@@ -205,7 +205,7 @@ describe("PROTOTYPES", () => {
   });
 
   describe("Class Prompts", () => {
-    it.skip("feClassrooms", () => {
+    it("feClassrooms", () => {
       const e = classPrompts.feClassrooms();
 
       expect(e).to.deep.equal([{
@@ -227,7 +227,7 @@ describe("PROTOTYPES", () => {
       }])
     });
 
-    it.skip("totalCapacities", () => {
+    it("totalCapacities", () => {
       const e = classPrompts.totalCapacities();
 
       expect(e).to.deep.equal({
@@ -236,7 +236,7 @@ describe("PROTOTYPES", () => {
       })
     });
 
-    it.skip("sortByCapacity", () => {
+    it("sortByCapacity", () => {
       const e = classPrompts.sortByCapacity();
 
       expect(e).to.deep.equal([{
