@@ -402,8 +402,24 @@ const bookPrompts = {
     //   'The Curious Incident of the Dog in the Night - Time', 'The Bell Jar',
     //   'Catch-22', 'Treasure Island']
 
+    // input an array of objects of books
+    // output an array of a different length of books not in horror or true crime
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    //
+    // const result = books.filter((book) => {
+    //   book.title != 'Horror' || 'True Crime';
+    //   book.title;
+    // });
+    //
+    // return result;
+
+    const result = books.reduce((newArray, book) => {
+      if (book.genre !== "Horror" && book.genre !== "True Crime") {
+        newArray.push(book.title)
+      }
+      return newArray;
+    }, []);
+
     return result;
 
     // Annotation:
@@ -414,11 +430,20 @@ const bookPrompts = {
     // return an array of objects containing all books that were
     // published in the 90's and 00's. Inlucde the title and the year Eg:
 
+    // input an array of objects of books
+    // output an array of a different length that only returns books published
+    // in the 90s and 00s, create new object with the title and year
+
     // [{ title: 'Harry Potter and the Sorcerer\'s Stone', year: 1997 },
     //  { title: 'Life of Pi', year: 2001 },
     //  { title: 'The Curious Incident of the Dog in the Night-Time', year: 2003 }]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    const result = books.reduce((newArray, book) => {
+      if (book.published >= 1990) {
+        newArray.push({title: book.title, year: book.published})
+      }
+      return newArray;
+    }, []);
     return result;
 
     // Annotation:
