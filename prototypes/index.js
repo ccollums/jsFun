@@ -466,7 +466,13 @@ const weatherPrompts = {
     // return an array of all the average temperatures. Eg:
     // [ 40, 40, 44.5, 43.5, 57, 35, 65.5, 62, 14, 46.5 ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    // input an array of objects
+    // output an array of only the average temperatures. high+low/2
+
+    const result = weather.reduce((average, city) => {
+      average.push((city.temperature.high + city.temperature.low)/2);
+      return average
+    }, []);
     return result;
 
     // Annotation:
@@ -480,7 +486,15 @@ const weatherPrompts = {
     // 'New Orleans, Louisiana is sunny.',
     // 'Raleigh, North Carolina is mostly sunny.' ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    // input an array of objects
+    // output an array of a different length that is filtered by sunny places
+    // and returns an array of sentences
+
+    const result = weather.filter((city) => {
+      return city.type.includes('sunny')
+    }).map((city) => {
+      return `${city.location} is ${city.type}.`
+    })
     return result;
 
     // Annotation:
@@ -496,7 +510,12 @@ const weatherPrompts = {
     //   temperature: { high: 49, low: 38 }
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    // input an array of objects
+    // output one object that has the highest humidity;
+
+    const result = weather.find((city) => {
+      return city.humidity > 80
+    });
     return result;
 
     // Annotation:
@@ -523,7 +542,24 @@ const nationalParksPrompts = {
     //   parksVisited: ["Rocky Mountain", "Acadia", "Zion"]
     //}
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    // input an array of objects
+    // output an object with keys parksToVisit and parksVisited
+    // assigned to an array full of national parks
+
+    const result = nationalParks.reduce((travelInfo, park) => {
+      const visited = nationalParks.filter((park) => {
+        return park.visited;
+      }).map((park) => {
+        return park.name;
+      })
+      const notVisited = nationalParks.filter((park) => {
+        return !park.visited
+      }).map((park) => {
+        return park.name
+      })
+      travelInfo = {parksToVisit: notVisited, parksVisited: visited}
+      return travelInfo;
+    }, {});
     return result;
 
     // Annotation:
@@ -539,9 +575,19 @@ const nationalParksPrompts = {
     // { Utah: 'Zion' },
     // { Florida: 'Everglades' } ]
 
+    // input an array of objects
+    // output is an array of objects with a dynamic key of the location
+    // and a value of the name of the national park
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    //
+
+    //   const result = nationalParks.reduce((array, park) => {
+    //     nationalParks.forEach((park) => {
+    //       array.push(park[park.location] = park.name)
+    //     })
+    //     return array;
+    // }, []);
+    // return result;
 
     // Annotation:
     // Write your annotation here as a comment
@@ -563,8 +609,20 @@ const nationalParksPrompts = {
     //   'backpacking',
     //   'rock climbing' ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    // input an array of objects including an array
+    // output an array of a different length that includes what was inside another array
+
+    const result = nationalParks.reduce((array, park) => {
+      park.activities.forEach((activity) => {
+        if (!array.includes(activity)) {
+        array.push(activity);
+        }
+      })
+      return array
+    }, []);
     return result;
+
+
 
     // Annotation:
     // Write your annotation here as a comment
