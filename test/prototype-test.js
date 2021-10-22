@@ -359,7 +359,7 @@ describe("PROTOTYPES", () => {
         'rock climbing'
       ])
     }),
-    it.skip("getParkInEachState", () => {
+    it("getParkInEachState", () => {
       const e = nationalParksPrompts.getParkInEachState();
 
       expect(e).to.deep.equal(
@@ -375,13 +375,13 @@ describe("PROTOTYPES", () => {
   });
 
   describe("Brewery Prompts", () => {
-    it.skip("getBeerCount", () => {
+    it("getBeerCount", () => {
       const e = breweryPrompts.getBeerCount();
 
       expect(e).to.deep.equal(40)
     });
 
-    it.skip("getBreweryBeerCount", () => {
+    it("getBreweryBeerCount", () => {
       const e = breweryPrompts.getBreweryBeerCount();
 
       expect(e).to.deep.equal([{

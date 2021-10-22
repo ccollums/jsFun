@@ -513,10 +513,17 @@ const weatherPrompts = {
     // input an array of objects
     // output one object that has the highest humidity;
 
-    const result = weather.find((city) => {
-      return city.humidity > 80
+    const result = weather.sort((a, b) => {
+      return a.humidity - b.humidity;
     });
-    return result;
+    return result.pop();
+
+    // const result = weather.reduce((obj, city) => {
+    //   (obj.humidity > city.humidity?obj:city).obj
+    //   return obj;
+    // }, {})
+    //
+    // return result;
 
     // Annotation:
     // Write your annotation here as a comment
@@ -581,13 +588,10 @@ const nationalParksPrompts = {
 
     //
 
-    //   const result = nationalParks.reduce((array, park) => {
-    //     nationalParks.forEach((park) => {
-    //       array.push(park[park.location] = park.name)
-    //     })
-    //     return array;
-    // }, []);
-    // return result;
+      const result = nationalParks.map((park) => {
+        return {[park.location]: park.name}
+      })
+      return result;
 
     // Annotation:
     // Write your annotation here as a comment
@@ -623,7 +627,6 @@ const nationalParksPrompts = {
     return result;
 
 
-
     // Annotation:
     // Write your annotation here as a comment
   }
@@ -645,14 +648,20 @@ const nationalParksPrompts = {
 // DATASET: breweries from ./datasets/breweries
 const breweryPrompts = {
   getBeerCount() {
+    const result = breweries.reduce((sum, brewery) => {
+      sum += brewery.beers.length;
+      return sum;
+    }, 0);
+    return result;
+
+
     // Return the total beer count of all beers for every brewery e.g.
     // 40
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    // input an array of objects
+    // output a number that it the total amount of beers for all breweries
+    // this will be the beers.length of each brewery
 
-    // Annotation:
-    // Write your annotation here as a comment
   },
 
   getBreweryBeerCount() {
@@ -664,7 +673,14 @@ const breweryPrompts = {
     // ...etc.
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    // input an array of objects with another array of objects
+    // output is an array of objects with key of name and ket of getBeerCount
+    // same length array ..map or ..reduce
+    //
+
+    const result = breweries.map((brewery) => {
+      return {name: brewery.name, beerCount: brewery.beers.length}
+    });
     return result;
 
     // Annotation:
@@ -676,8 +692,49 @@ const breweryPrompts = {
     // e.g.
     // { name: 'Barrel Aged Nature\'s Sweater', type: 'Barley Wine', abv: 10.9, ibu: 40 }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    // input is an array of objects
+    // output is an object from inside the beers array
+    // therefore we will need to iterate over that area as well
+    //
+    // const result = breweries.forEach((brewery) => {
+    //   const beersArray = brewery.beers.sort((a, b) => {
+    //     return a.abv - b.abv;
+    //   })
+    //   const highestBeer = beersArray.pop()
+    // });
+    //
+    // return result;
+
+
+    // const result = breweries.forEach((brewery) => {
+    //     const beersArray = brewery.beers.sort((a, b) => {
+    //     return a.abv - b.abv;
+    //   })
+    //     brewery.beers = beersArray.pop()
+    //     console.log(brewery)
+    //     // brewery.sort((a, b) => {
+    //     //   return a.beers.abv - b.beers.abv
+    //     // })
+    //     // console.log(beersArray)
+    // });
+    //
+    // return result;
+
+    // const result = breweries.sort((a, b) => {
+    //   return a.beers.abv - b.beers.abv;
+    // })
+    // console.log(result)
+    // // console.log(result.beers.pop())
+    // return result.pop();
+
+    const result = breweries.find((brewery) => {
+      brewery.beers.reduce((obj, beer) => {
+        obj.abv
+        return obj;
+      }, {})
+    })
+
+
 
     // Annotation:
     // Write your annotation here as a comment
