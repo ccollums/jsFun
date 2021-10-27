@@ -1,17 +1,51 @@
-const { kitties } = require('./datasets/kitties');
-const { clubs } = require('./datasets/clubs');
-const { mods } = require('./datasets/mods');
-const { cakes } = require('./datasets/cakes');
-const { classrooms } = require('./datasets/classrooms');
-const { breweries } = require('./datasets/breweries');
-const { nationalParks } = require('./datasets/nationalParks');
-const { books } = require('./datasets/books');
-const { weather } = require('./datasets/weather');
-const { instructors, cohorts } = require('./datasets/turing');
-const { bosses, sidekicks } = require('./datasets/bosses');
-const { constellations, stars } = require('./datasets/astronomy');
-const { weapons, characters } = require('./datasets/ultima');
-const { dinosaurs, humans, movies } = require('./datasets/dinosaurs');
+const {
+  kitties
+} = require('./datasets/kitties');
+const {
+  clubs
+} = require('./datasets/clubs');
+const {
+  mods
+} = require('./datasets/mods');
+const {
+  cakes
+} = require('./datasets/cakes');
+const {
+  classrooms
+} = require('./datasets/classrooms');
+const {
+  breweries
+} = require('./datasets/breweries');
+const {
+  nationalParks
+} = require('./datasets/nationalParks');
+const {
+  books
+} = require('./datasets/books');
+const {
+  weather
+} = require('./datasets/weather');
+const {
+  instructors,
+  cohorts
+} = require('./datasets/turing');
+const {
+  bosses,
+  sidekicks
+} = require('./datasets/bosses');
+const {
+  constellations,
+  stars
+} = require('./datasets/astronomy');
+const {
+  weapons,
+  characters
+} = require('./datasets/ultima');
+const {
+  dinosaurs,
+  humans,
+  movies
+} = require('./datasets/dinosaurs');
 
 
 
@@ -102,7 +136,8 @@ const clubPrompts = {
     const result = clubs.reduce((allMemberClubs, club) => {
       club.members.forEach((member) => {
         if (!allMemberClubs[member]) {
-          allMemberClubs[member] = []};
+          allMemberClubs[member] = []
+        };
         allMemberClubs[member].push(club.club);
       })
       return allMemberClubs;
@@ -146,7 +181,10 @@ const modPrompts = {
     // output an array of objects with students/instructors with a new key of studentsPerInstructor
 
     const result = mods.map((mod) => {
-      return {mod: mod.mod, studentsPerInstructor: mod.students/mod.instructors}
+      return {
+        mod: mod.mod,
+        studentsPerInstructor: mod.students / mod.instructors
+      }
     });
     return result;
 
@@ -186,7 +224,10 @@ const cakePrompts = {
     // output an array of objects with just flavor and how much inStock
 
     const result = cakes.map((cake) => {
-      return {flavor: cake.cakeFlavor, inStock: cake.inStock}
+      return {
+        flavor: cake.cakeFlavor,
+        inStock: cake.inStock
+      }
     });
     return result;
 
@@ -280,7 +321,7 @@ const cakePrompts = {
         if (!groceryList[topping]) {
           groceryList[topping] = 0;
         }
-        groceryList[topping] ++;
+        groceryList[topping]++;
       })
       return groceryList;
     }, {});
@@ -344,18 +385,18 @@ const classPrompts = {
 
     const result = classrooms.reduce((obj, room) => {
       const feSum = classrooms.reduce((sum, room) => {
-        if(room.program === 'FE') {
+        if (room.program === 'FE') {
           sum += room.capacity
         }
         return sum;
       }, 0)
       const beSum = classrooms.reduce((sum, room) => {
-        if(room.program === 'BE') {
+        if (room.program === 'BE') {
           sum += room.capacity
         }
         return sum;
       }, 0)
-      if(room.program === 'FE') {
+      if (room.program === 'FE') {
         obj.feCapacity = feSum;
       } else {
         obj.beCapacity = beSum;
@@ -440,7 +481,10 @@ const bookPrompts = {
 
     const result = books.reduce((newArray, book) => {
       if (book.published >= 1990) {
-        newArray.push({title: book.title, year: book.published})
+        newArray.push({
+          title: book.title,
+          year: book.published
+        })
       }
       return newArray;
     }, []);
@@ -470,7 +514,7 @@ const weatherPrompts = {
     // output an array of only the average temperatures. high+low/2
 
     const result = weather.reduce((average, city) => {
-      average.push((city.temperature.high + city.temperature.low)/2);
+      average.push((city.temperature.high + city.temperature.low) / 2);
       return average
     }, []);
     return result;
@@ -510,9 +554,6 @@ const weatherPrompts = {
     //   temperature: { high: 49, low: 38 }
     // }
 
-    // input an array of objects
-    // output one object that has the highest humidity;
-
     const result = weather.sort((a, b) => {
       return a.humidity - b.humidity;
     });
@@ -525,6 +566,9 @@ const weatherPrompts = {
     //
     // return result;
 
+
+    // input an array of objects
+    // output one object that has the highest humidity;
     // Annotation:
     // Write your annotation here as a comment
 
@@ -564,7 +608,10 @@ const nationalParksPrompts = {
       }).map((park) => {
         return park.name
       })
-      travelInfo = {parksToVisit: notVisited, parksVisited: visited}
+      travelInfo = {
+        parksToVisit: notVisited,
+        parksVisited: visited
+      }
       return travelInfo;
     }, {});
     return result;
@@ -588,10 +635,12 @@ const nationalParksPrompts = {
 
     //
 
-      const result = nationalParks.map((park) => {
-        return {[park.location]: park.name}
-      })
-      return result;
+    const result = nationalParks.map((park) => {
+      return {
+        [park.location]: park.name
+      }
+    })
+    return result;
 
     // Annotation:
     // Write your annotation here as a comment
@@ -619,7 +668,7 @@ const nationalParksPrompts = {
     const result = nationalParks.reduce((array, park) => {
       park.activities.forEach((activity) => {
         if (!array.includes(activity)) {
-        array.push(activity);
+          array.push(activity);
         }
       })
       return array
@@ -679,7 +728,10 @@ const breweryPrompts = {
     //
 
     const result = breweries.map((brewery) => {
-      return {name: brewery.name, beerCount: brewery.beers.length}
+      return {
+        name: brewery.name,
+        beerCount: brewery.beers.length
+      }
     });
     return result;
 
@@ -695,47 +747,26 @@ const breweryPrompts = {
     // input is an array of objects
     // output is an object from inside the beers array
     // therefore we will need to iterate over that area as well
-    //
-    // const result = breweries.forEach((brewery) => {
-    //   const beersArray = brewery.beers.sort((a, b) => {
-    //     return a.abv - b.abv;
-    //   })
-    //   const highestBeer = beersArray.pop()
-    // });
-    //
-    // return result;
+    // //
 
+    // const result = breweries.map((brewery) => {
+    //   return brewery.beers;
+    // }).flat().sort((a, b) => {
+    //   return a.abv-b.abv;
+    // }).pop()
 
-    // const result = breweries.forEach((brewery) => {
-    //     const beersArray = brewery.beers.sort((a, b) => {
-    //     return a.abv - b.abv;
-    //   })
-    //     brewery.beers = beersArray.pop()
-    //     console.log(brewery)
-    //     // brewery.sort((a, b) => {
-    //     //   return a.beers.abv - b.beers.abv
-    //     // })
-    //     // console.log(beersArray)
-    // });
-    //
-    // return result;
+    const result = breweries.map((brewery) => {
+      return brewery.beers;
+    }).reduce((beersArray, beer) => {
+      beersArray.push(beer)
+      return beersArray
+    }, []).sort((a, b) => {
+      return a.abv - b.abv
+    }).pop().sort((a, b) => {
+      return a.abv - b.abv
+    }).pop()
 
-    // const result = breweries.sort((a, b) => {
-    //   return a.beers.abv - b.beers.abv;
-    // })
-    // console.log(result)
-    // // console.log(result.beers.pop())
-    // return result.pop();
-
-    const result = breweries.find((brewery) => {
-      brewery.beers.reduce((obj, beer) => {
-        obj.abv
-        return obj;
-      }, {})
-    })
-
-
-
+    return result;
     // Annotation:
     // Write your annotation here as a comment
   }
@@ -781,8 +812,29 @@ const turingPrompts = {
     //  { name: 'Robbie', studentCount: 18 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    // const result = instructors.map((instructor) => {
+    //   const obj = {name: instructor.name, studentCount: 0}
+    //   cohorts.forEach((cohort) => {
+    //     if (instructor.module === cohort.module) {
+    //       obj.studentCount = cohort.studentCount
+    //     }
+    //   })
+    //   return obj
+    // });
+    // return result;
+
+    const instructorStudentCounts = instructors.reduce((newArr, instructor) => {
+      cohorts.forEach(group => {
+        if (group.module === instructor.module) {
+          newArr.push({
+            name: instructor.name,
+            studentCount: group.studentCount
+          })
+        }
+      })
+      return newArr;
+    }, []);
+    return instructorStudentCounts;
 
     // Annotation:
     // Write your annotation here as a comment
@@ -795,12 +847,41 @@ const turingPrompts = {
     // cohort1804: 10.5
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    // input two arrays of objects
+    // output to be an object with key values of cohort1806 which are in cohorts array
+    // and values of students per teacher. student count is in cohort array,
+    // but we need to match the module in each array have a counter for teachers for that mod?
+    // then divide those counters by studentcount to get value of object
+
+    const teachersPerCohort = instructors.reduce((modules, teacher) => {
+      if (!modules[teacher.module]) {
+        modules[teacher.module] = 0
+      }
+      modules[teacher.module]++
+      return modules
+    }, {})
+
+    return cohorts.reduce((obj, cohort) => {
+      obj[`cohort${cohort.cohort}`] = cohort.studentCount/teachersPerCohort[cohort.module];
+      return obj
+    }, {})
+
+    // const studentsPerInstructorByCohort = cohorts.reduce((cohorts, group) => {
+    //   let numOfTeachersPerModule = instructors.filter(instructor => {
+    //     return group.module === instructor.module;
+    //   })
+    //
+    //   cohorts[`cohort${group.cohort}`] = group.studentCount / numOfTeachersPerModule.length;
+    //
+    //   return cohorts;
+    // }, {})
+    // return studentsPerInstructorByCohort;
+
 
     // Annotation:
     // Write your annotation here as a comment
-  },
+  // },
+},
 
   modulesPerTeacher() {
     // Return an object where each key is an instructor name and each value is
@@ -817,7 +898,25 @@ const turingPrompts = {
     //     Will: [1, 2, 3, 4]
     //   }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    // input two arrays of objects - one being instructors the other being cohorts
+    // output an object with keys of teacher names (same length as instructors array) and
+    // a value that is an array of numbers (which are the mods they can teach)
+    // to get the mods they can teach need to compare instructors.teaches array to
+    // cohorts.curriculum array
+    // then create a new array that has those numbers in it and is equal to the name of instructor
+
+    const result = instructors.reduce((obj, instructor) => {
+      obj[instructor.name] = [];
+        cohorts.forEach((cohort) => {
+          cohort.curriculum.forEach((subject) => {
+            if (instructor.teaches.includes(subject) && !obj[instructor.name].includes(cohort.module)) {
+              obj[instructor.name].push(cohort.module)
+            }
+          })
+        })
+      return obj
+    }, {});
+
     return result;
 
     // Annotation:
@@ -834,7 +933,27 @@ const turingPrompts = {
     //   recursion: [ 'Pam', 'Leta' ]
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+    // input two arrays of objects
+    // output an object with keys equal to the curriculum subject
+    // the values will be an array of instructors who teach that subject
+    // first want to reduce down to an object
+    // create the keys of curriculum (need to iterate over curriculum to get these)
+    // set those equal to an empty array
+    // then iterate over the instructors.teaches array to push in a name if not already
+    // so a conditional will be needed to check if that instructor is in that array already or not
+
+    const result = cohorts.reduce((obj, cohort) => {
+      cohort.curriculum.forEach((subject) => {
+        obj[subject] = []
+        instructors.forEach((instructor) => {
+          if (instructor.teaches.includes(subject) && !obj[subject].includes(instructor.name)) {
+            obj[subject].push(instructor.name)
+          }
+        })
+      })
+
+      return obj;
+    }, {});
     return result;
 
     // Annotation:
