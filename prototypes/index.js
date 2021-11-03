@@ -61,6 +61,7 @@ const kittyPrompts = {
   orangeKittyNames() {
     // Return an array of just the names of kitties who are orange e.g.
     // ['Tiger', 'Snickers']
+
     const result = kitties.filter((kitty) => {
       return kitty.color === 'orange';
     }).map((kitty) => {
@@ -454,14 +455,23 @@ const bookPrompts = {
     //
     // return result;
 
-    const result = books.reduce((newArray, book) => {
-      if (book.genre !== "Horror" && book.genre !== "True Crime") {
-        newArray.push(book.title)
-      }
-      return newArray;
-    }, []);
+    // const result = books.reduce((newArray, book) => {
+    //   if (book.genre !== "Horror" && book.genre !== "True Crime") {
+    //     newArray.push(book.title)
+    //   }
+    //   return newArray;
+    // }, []);
+    //
+    // return result;
 
-    return result;
+
+    const result = books.filter((book) => {
+      return book.genre !== 'Horror' && book.genre !== "True Crime"
+    }).map((book) => {
+      return book.title
+    })
+
+    return result
 
     // Annotation:
     // Write your annotation here as a comment
@@ -862,7 +872,7 @@ const turingPrompts = {
     }, {})
 
     return cohorts.reduce((obj, cohort) => {
-      obj[`cohort${cohort.cohort}`] = cohort.studentCount/teachersPerCohort[cohort.module];
+      obj[`cohort${cohort.cohort}`] = cohort.studentCount / teachersPerCohort[cohort.module];
       return obj
     }, {})
 
@@ -880,8 +890,8 @@ const turingPrompts = {
 
     // Annotation:
     // Write your annotation here as a comment
-  // },
-},
+    // },
+  },
 
   modulesPerTeacher() {
     // Return an object where each key is an instructor name and each value is
@@ -907,13 +917,13 @@ const turingPrompts = {
 
     const result = instructors.reduce((obj, instructor) => {
       obj[instructor.name] = [];
-        cohorts.forEach((cohort) => {
-          cohort.curriculum.forEach((subject) => {
-            if (instructor.teaches.includes(subject) && !obj[instructor.name].includes(cohort.module)) {
-              obj[instructor.name].push(cohort.module)
-            }
-          })
+      cohorts.forEach((cohort) => {
+        cohort.curriculum.forEach((subject) => {
+          if (instructor.teaches.includes(subject) && !obj[instructor.name].includes(cohort.module)) {
+            obj[instructor.name].push(cohort.module)
+          }
         })
+      })
       return obj
     }, {});
 
@@ -988,13 +998,46 @@ const bossPrompts = {
     //   { bossName: 'Scar', sidekickLoyalty: 16 }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    // input an object of objects for the bosses and an array
+    // of objects for the sidekicks
+    // output is an array of objects with keys of bossName and sidekickLoyalty
+    // and values of the boss name
+    // sidekickLoyalty value is equal to the name of sidekick+=loyalty
+    // want to check if sidekicks.boss === bossName
+    // than if so add together the loyaltyToBoss and assign to the sidekickLoyalty
 
-    // Annotation:
-    // Write your annotation here as a comment
+    // const bossLoyalty = () => {
+    //   const array = Object.keys(bosses);
+    //   return array.map((bossName) => {
+    //     let loyalty = 0;
+    //     sidekicks.forEach((sidekick) => {
+    //       if (sidekick.boss.toLowerCase() === bossName) {
+    //         loyalty += sidekick.loyaltyToBoss
+    //       }
+    //     })
+    //     return {bossName: bossName, sideKickLoyalty: loyalty}
+    //   }).reverse()
+    // }
+
+    const result = Object.keys(bosses).map(boss => {
+      const loyalty = {
+        bossName: bosses[boss].name,
+        sidekickLoyalty: 0
+      };
+      sidekicks.forEach(sidekick => {
+        if (sidekick.boss === loyalty.bossName) {
+          loyalty.sidekickLoyalty += sidekick.loyaltyToBoss;
+        }
+      });
+      return loyalty;
+    });
+    return result;
   }
-};
+
+  // Annotation:
+  // Write your annotation here as a comment
+}
+
 
 
 
@@ -1030,7 +1073,18 @@ const astronomyPrompts = {
     //     color: 'red' }
     // ]
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+// input an array of stars
+// output an arrays of stars that will be a different length than original
+ // will need to see if star.constellation.includes(constellations[star.constellation].stars
+    const result = stars.reduce((array, star) => {
+      const galaxy = Object.keys(constellations);
+      const answer = galaxy.forEach((constellation) => {
+        if (constellations[constellation].stars.includes(star.name)) {
+          array.push(star)
+      }
+    })
+    return array;
+  }, [])
     return result;
 
     // Annotation:
@@ -1048,8 +1102,27 @@ const astronomyPrompts = {
     //   red: [{obj}]
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    // input an array of objects representing stars
+    // output an object with keys of colors of stars and values of the star that is that color
+    // want to reduce down to an object
+    // make a key with star.color
+    // the value will be pushed into an array and will be the star
+    // for each star if the color matches the key then push into array.
+
+    const result = stars.reduce((obj, star) => {
+        if (!obj[star.color]) {
+          obj[star.color] = []
+          }
+        let keys = Object.keys(obj)
+        keys.forEach((color) => {
+          if (color === star.color) {
+            obj[star.color].push(star)
+          }
+        })
+        return obj;
+      }, {});
+
+      return result;
 
     // Annotation:
     // Write your annotation here as a comment
@@ -1070,7 +1143,14 @@ const astronomyPrompts = {
     //    "The Little Dipper" ]
 
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
+  const result = stars.sort((a, b) => {
+      return a.visualMagnitude - b.visualMagnitude;
+    }).filter((star) => {
+      return star.constellation.length > 1;
+    }).map((star) => {
+      return star.constellation;
+    });
+
     return result;
 
     // Annotation:
@@ -1101,12 +1181,21 @@ const ultimaPrompts = {
     // Return the sum of the amount of damage for all the weapons that our characters can use
     // Answer => 113
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
-
-    // Annotation:
-    // Write your annotation here as a comment
+    const result = characters.reduce((sum, character) => {
+      const keys = Object.keys(weapons)
+        character.weapons.forEach((weapon) => {
+          keys.forEach((key) => {
+            if (weapon === key) {
+              sum += weapons[key].damage
+            }
+          })
+        })
+        return sum
+      }, 0)
+      return result
   },
+
+
 
   charactersByTotal() {
 
@@ -1139,7 +1228,7 @@ const ultimaPrompts = {
 
 // DATASET: dinosaurs, humans, movies from ./datasets/dinosaurs
 const dinosaurPrompts = {
-  countAwesomeDinosaurs() {
+
     // Return an object where each key is a movie title and each value is the
     // number of awesome dinosaurs in that movie. e.g.:
     // {
@@ -1150,8 +1239,22 @@ const dinosaurPrompts = {
     //   'Jurassic World: Fallen Kingdom': 18
     // }
 
-    const result = 'REPLACE WITH YOUR RESULT HERE';
-    return result;
+    // input an object of objects holding the dinosaurs and an array of objects holding the movies
+    // an object with a key of the title of the movie
+
+    countAwesomeDinosaurs() {
+       const dinoNames = Object.keys(dinosaurs);
+       const result = movies.reduce((obj, movie) => {
+         obj[movie.title] = 0;
+         dinoNames.forEach((dino) => {
+           if (movie.dinos.includes(dino) && dinosaurs[dino].isAwesome) {
+             obj[movie.title] += 1
+           }
+         })
+         return obj;
+       }, {});
+       return result;
+
 
     // Annotation:
     // Write your annotation here as a comment
